@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Ignite: What I Learned Orchestrating Three AI Agents in Six Days - Taka Ishikawa</title>
+  <meta name="description" content="Built Ignite, a multi-agent AI system for discovering and evaluating business opportunities. Over 6 days, implemented a complete pipeline with Research, Ideatio">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <main>
+    <a href="/" class="back-link">&larr; Back</a>
+
+    <article>
+      <header class="post-header">
+        <h1>Building Ignite: What I Learned Orchestrating Three AI Agents in Six Days</h1>
+        <span class="date">January 2026</span>
+      </header>
+
+      <div class="post-content">
+        <p>Can we build a system that discovers business opportunities and actually validates them? That question kicked off six intense days of building Ignite, a multi-agent AI system that takes ideas from research to working prototypes. Here's what I learned about orchestrating multiple AI agents and why the feedback loops matter more than the agents themselves.</p>
+
+<h2>The Architecture That Actually Worked</h2>
+
+<p>I started with three specialized agents: Research, Ideation, and Evaluator. The Research agent pulls market data and trends. Ideation generates business concepts from that research. The Evaluator scores and validates ideas before they move to prototype.</p>
+
+<p>The key insight? <strong>Agent handoffs need explicit contracts</strong>. Each agent expects specific input formats and produces predictable outputs. No magic prompts or hoping the LLM figures it out. Clear interfaces between Anthropic and OpenAI models prevented the chaos I've seen in other multi-agent setups.</p>
+
+<p>PostgreSQL with pgvector handles all the knowledge storage. Vector similarity search lets agents reference previous research and avoid duplicate work. Is this a 1:1 relationship between research topics and generated ideas? Not quite. One research session spawns multiple ideation rounds, creating a tree structure that pgvector navigates efficiently.</p>
+
+<h2>Feedback Infrastructure Changes Everything</h2>
+
+<p>Here's where most AI systems fail: they generate outputs but never learn from them. I built comprehensive feedback collection with source tracking from day one. Every generated idea links back to its research sources. Every evaluation decision gets logged with reasoning.</p>
+
+<p>This isn't just logging for debugging. The feedback loop improves agent performance over time. When the Evaluator rejects an idea, that rejection becomes training data for future ideation rounds. The Research agent learns which sources produce actionable insights versus noise.</p>
+
+<p>The MVP builder component validates this entire pipeline. It takes high-scoring ideas and generates working prototypes using code generation. Can we actually build what the agents propose? This forces honest evaluation of idea quality and feasibility.</p>
+
+<h2>What I'd Build Differently</h2>
+
+<p>Six days taught me that <strong>orchestration complexity grows exponentially</strong>. Three agents feel manageable. Five agents would need serious workflow management. We need to resist the urge to add specialized agents for every task.</p>
+
+<p>Source attribution proved more valuable than I expected. Users wanna trace ideas back to original research. They need confidence in the system's reasoning. Building this tracking from the start saved massive refactoring later.</p>
+
+<p>The biggest surprise? LLM model switching mid-pipeline actually works well. Anthropic excels at research synthesis. OpenAI handles creative ideation better. Using the right model for each agent improved output quality significantly.</p>
+
+<p>Ignite proves that multi-agent systems can move beyond demos into practical tools. The research-to-execution pipeline works when you design clear interfaces, implement proper feedback loops, and resist over-engineering. Now let me analyze what business opportunities this system might discover for itself.</p>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
