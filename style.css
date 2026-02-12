@@ -93,9 +93,15 @@ h3 {
 
 /* Current Work Cards */
 .cards {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 540px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .card {
@@ -117,6 +123,10 @@ h3 {
 .card p {
   font-size: 0.9375rem;
   color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+.card p:not(:last-child) {
   margin-bottom: 1rem;
 }
 
@@ -129,7 +139,8 @@ h3 {
   gap: 0.25rem;
 }
 
-.link:hover {
+.link:hover,
+.link:focus {
   text-decoration: underline;
 }
 
@@ -179,7 +190,8 @@ h3 {
 /* Links */
 .links {
   display: flex;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
   margin-top: 1.5rem;
 }
 
@@ -190,8 +202,19 @@ h3 {
   transition: color 0.2s ease;
 }
 
-.links a:hover {
+.links a:hover,
+.links a:focus {
   color: var(--text);
+}
+
+/* Focus states for accessibility */
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.card:focus-within {
+  border-color: var(--accent);
 }
 
 /* Blog */
@@ -218,7 +241,8 @@ h3 {
   transition: color 0.2s ease;
 }
 
-.posts a:hover {
+.posts a:hover,
+.posts a:focus {
   color: var(--accent);
 }
 
