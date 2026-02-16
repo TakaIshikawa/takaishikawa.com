@@ -91,43 +91,71 @@ h3 {
   color: var(--text-muted);
 }
 
-/* Current Work Cards */
-.cards {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+/* Work */
+.work-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
 }
 
-@media (min-width: 540px) {
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.work-item {
+  border-left: 2px solid #2a2a2a;
+  padding-left: 1.5rem;
 }
 
-.card {
-  background: var(--bg-subtle);
-  border: 1px solid #2a2a2a;
-  border-radius: 8px;
-  padding: 1.5rem;
-  transition: border-color 0.2s ease;
+.work-item.current {
+  border-left-color: var(--accent);
 }
 
-.card:hover {
-  border-color: #3a3a3a;
+.work-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
-.card h3 {
-  color: var(--text);
-}
-
-.card p {
-  font-size: 0.9375rem;
-  color: var(--text-muted);
+.work-header h3 {
   margin-bottom: 0;
 }
 
-.card p:not(:last-child) {
-  margin-bottom: 1rem;
+.work-item.current .period {
+  color: var(--accent);
+}
+
+.work-item p {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+}
+
+/* Recent Projects */
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.project {
+  padding: 1.25rem;
+  background: var(--bg-subtle);
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.project:hover {
+  background: #1f1f1f;
+}
+
+.project h3 {
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 0.375rem;
+}
+
+.project p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 
 .link {
@@ -153,37 +181,8 @@ h3 {
   transform: translateX(4px);
 }
 
-/* Background Highlights */
-.highlights {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
-
-.highlight {
-  border-left: 2px solid #2a2a2a;
-  padding-left: 1.5rem;
-}
-
-.highlight-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
-}
-
-.highlight-header h3 {
-  margin-bottom: 0;
-}
-
 .period {
   font-size: 0.875rem;
-  color: var(--text-muted);
-}
-
-.highlight p {
-  font-size: 0.9375rem;
   color: var(--text-muted);
 }
 
