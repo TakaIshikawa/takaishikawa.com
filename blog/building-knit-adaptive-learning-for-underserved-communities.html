@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Knit: Adaptive Learning for Underserved Communities - Taka Ishikawa</title>
+  <meta name="description" content="Building an AI-powered literacy and numeracy app with adaptive learning, gamification, and on-device AI for children and adults in underserved communities.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <main>
+    <a href="/" class="back-link">&larr; Back</a>
+
+    <article>
+      <header class="post-header">
+        <h1>Building Knit: Adaptive Learning for Underserved Communities</h1>
+        <span class="date">February 2026</span>
+      </header>
+
+      <div class="post-content">
+        <p>Over 50% of children under 15 globally lack minimum proficiency in reading and math. That statistic drove the development of Knit, an AI-powered learning companion that runs on affordable Android devices. Here's what I learned about building adaptive education technology for the people who need it most.</p>
+
+<h2>The Android Go Constraint</h2>
+
+<p>Target devices run Android Go with 1GB RAM. That's even tighter than typical budget phones. Every feature decision filters through this constraint. The app needs to be fast on hardware that flagship users would consider unusable.</p>
+
+<p>React Native provided the development framework. Jetpack Compose would have been more performant, but React Native's cross-platform story and developer tooling won out. Performance optimization became a continuous discipline rather than an afterthought.</p>
+
+<h2>Adaptive Learning Engine</h2>
+
+<p>The core innovation is the adaptive learning engine combining Bayesian Knowledge Tracing (BKT) and Elo-style ratings. BKT models what the learner knows. Elo adjusts difficulty in real-time. Together they create personalized learning paths that challenge without frustrating.</p>
+
+<p>The key insight: <strong>struggle is data, not failure.</strong> When a learner gets something wrong, that's signal about where to focus. The system doesn't just mark answers right or wrong; it updates its model of what the learner understands and adjusts accordingly.</p>
+
+<h2>Dual Mode Design</h2>
+
+<p>Children and adults learn differently. The app has two distinct modes:</p>
+
+<p><strong>Child mode</strong> uses gamification heavily. Points, streaks, characters, and celebrations. Learning feels like play. The visual design is colorful and encouraging. Feedback is immediate and positive.</p>
+
+<p><strong>Adult mode</strong> frames everything through practical economics. Math problems use market scenarios. Reading exercises draw from business contexts. The design is more utilitarian. Adults don't need games; they need relevance.</p>
+
+<h2>On-Device AI with Gemma 270M</h2>
+
+<p>Google AI Edge SDK runs Gemma 3 270M locally. The model provides personalized feedback on learner responses. It explains concepts in multiple ways. It generates encouraging messages that feel personal rather than canned.</p>
+
+<p>Running AI on-device means no internet required for core functionality. Rural areas with spotty connectivity can still use the app. Data stays on the device. Parents don't have to worry about what their children's learning data might be used for.</p>
+
+<h2>Text-to-Speech for Accessibility</h2>
+
+<p>Many target learners can't read yet. That's the whole point. TTS makes the app accessible to pre-literate users. Instructions are spoken. Content is read aloud. Learners can hear words while seeing them, building the connection between written and spoken language.</p>
+
+<p>Getting TTS right for Hindi required significant debugging. Default voices often mispronounce words. Custom voice models or careful phoneme mapping is necessary for acceptable quality.</p>
+
+<h2>Curriculum Design</h2>
+
+<p>The curriculum follows science of reading research. Phonemic awareness comes before phonics. Phonics builds to fluency. Fluency enables comprehension. Each stage has clear prerequisites and success criteria.</p>
+
+<p>Math follows a similar progression. Number sense grounds everything. Operations build on number sense. Word problems require both math fluency and reading comprehension. The curriculum acknowledges these dependencies.</p>
+
+<h2>What I'd Build Differently</h2>
+
+<p>Family learning features should have been in the MVP. Parents learning alongside children is powerful. The social dynamic reinforces learning for both. Building this as an add-on felt bolted on.</p>
+
+<p>Offline sync is harder than expected. Devices go weeks without connectivity. When they finally connect, the sync needs to be robust against partial states, conflicts, and interrupted transfers. Building a more sophisticated sync protocol earlier would have saved headaches.</p>
+
+<p>Knit proves that quality education technology doesn't require expensive hardware or constant connectivity. Adaptive algorithms, on-device AI, and thoughtful design can bring personalized learning to the communities that need it most.</p>
+      </div>
+    </article>
+  </main>
+</body>
+</html>

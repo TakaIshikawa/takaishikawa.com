@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Anywhere: Cross-Border Compliance Automation - Taka Ishikawa</title>
+  <meta name="description" content="Building a multi-agent system for cross-border corporate compliance, combining AI-assisted structure planning with attorney verification workflows.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <main>
+    <a href="/" class="back-link">&larr; Back</a>
+
+    <article>
+      <header class="post-header">
+        <h1>Building Anywhere: Cross-Border Compliance Automation</h1>
+        <span class="date">February 2026</span>
+      </header>
+
+      <div class="post-content">
+        <p>International business operations are a compliance nightmare. Different jurisdictions, tax treaties, immigration rules, corporate structures. Founders spend enormous time and money navigating this complexity. Anywhere attempts to automate what can be automated while routing critical decisions to qualified professionals. Here's what I learned building it.</p>
+
+<h2>The Attorney Verification Problem</h2>
+
+<p>AI can analyze tax treaties and suggest corporate structures. AI cannot practice law. This distinction shapes the entire architecture. Every output that could be construed as legal advice needs a clear path to attorney verification.</p>
+
+<p>The key insight: <strong>automate research, not decisions.</strong> The system assembles relevant information, identifies applicable rules, and surfaces key considerations. But the "should I do this?" question routes to humans. The export-to-attorney workflow became a first-class feature, not an afterthought.</p>
+
+<h2>Multi-Agent Architecture</h2>
+
+<p>Different aspects of cross-border operations require different expertise. Planning agents handle corporate structure recommendations. Compliance agents evaluate against jurisdiction-specific rules. Immigration agents track visa pathways and evidence building. A coordinator orchestrates these specialists.</p>
+
+<p>Each agent has bounded scope. The corporate structure agent doesn't opine on immigration. The tax analysis agent doesn't make visa recommendations. Clean boundaries prevent hallucination bleeding across domains.</p>
+
+<h2>Rules Engine Design</h2>
+
+<p>Legal compliance isn't fuzzy. A corporation either meets Delaware requirements or it doesn't. A tax residency test either passes or fails. These deterministic rules don't belong in an LLM.</p>
+
+<p>I built a rules engine in TypeScript with YAML-based parameters for jurisdiction-specific thresholds. The LLM interprets user situations and extracts relevant facts. The rules engine applies those facts to compliance criteria. This hybrid approach keeps the deterministic parts deterministic.</p>
+
+<h2>Event Sourcing for Auditability</h2>
+
+<p>When dealing with legal and tax matters, audit trails matter. Every state change persists as an event. The current state is a projection of the event history. If a question arises about how a recommendation was generated, the full history is available.</p>
+
+<p>PostgreSQL handles event storage. Queries can reconstruct state at any point in time. This isn't just for debugging; it's for the inevitable moment when an attorney asks "why did the system suggest this?"</p>
+
+<h2>Production Hardening</h2>
+
+<p>Security isn't optional for software handling corporate and financial data. API key authentication with timing-safe comparison. CORS protection with explicit allowed origins. Rate limiting prevents abuse. Security headers guard against common attacks. The Docker container runs as a non-root user.</p>
+
+<p>Graceful shutdown matters when long-running compliance evaluations are in progress. SIGTERM triggers connection draining. In-flight requests complete before the process exits. This prevents corrupted states during deployments.</p>
+
+<h2>Immigration Tracking</h2>
+
+<p>Visa compliance often depends on cumulative presence. How many days in the US? When do visa terms expire? What evidence supports the next application? The immigration module tracks travel history and builds evidence portfolios.</p>
+
+<p>The calendar math is surprisingly tricky. Different visas count days differently. Some count partial days. Some have rolling windows. Some have calendar year limits. Getting this right required careful attention to the specific rules of each visa type.</p>
+
+<h2>What I'd Build Differently</h2>
+
+<p>The jurisdiction coverage started too narrow. Delaware and Singapore are common, but founders come from everywhere. Expanding to more jurisdictions required more refactoring than expected. Building a more extensible jurisdiction framework from the start would have helped.</p>
+
+<p>Real-time compliance monitoring should have been the focus from day one. Point-in-time evaluation is useful, but ongoing monitoring catches issues before they become problems. The architecture supports this, but the UX treats it as secondary.</p>
+
+<p>Anywhere proves that AI can meaningfully assist with complex regulatory domains while maintaining appropriate boundaries. The combination of intelligent research, deterministic rules, and professional verification creates something more useful than either pure automation or pure manual process.</p>
+      </div>
+    </article>
+  </main>
+</body>
+</html>

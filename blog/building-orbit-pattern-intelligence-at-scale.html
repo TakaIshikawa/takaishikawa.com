@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Orbit: Pattern Intelligence at Scale - Taka Ishikawa</title>
+  <meta name="description" content="Built Orbit, a pattern intelligence platform that discovers systemic issues from diverse sources and develops solutions through an 8-stage pipeline with LLM-powered validation.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <main>
+    <a href="/" class="back-link">&larr; Back</a>
+
+    <article>
+      <header class="post-header">
+        <h1>Building Orbit: Pattern Intelligence at Scale</h1>
+        <span class="date">February 2026</span>
+      </header>
+
+      <div class="post-content">
+        <p>How do you build a system that can identify real systemic issues from noise? That question drove the development of Orbit, a platform that takes patterns detected across diverse sources and transforms them into actionable solutions. Here's what I learned about building evidence-based intelligence systems.</p>
+
+<h2>The Eight-Stage Pipeline</h2>
+
+<p>Orbit processes information through eight distinct entities: Pattern, Issue, ProblemBrief, SituationModel, Solution, Decision, Artifact, and RunLog. Each stage has clear inputs and outputs. Patterns are systemic signals detected from sources. Issues are triaged problems with IUTLN scoring. The pipeline continues through problem definition, evidence mapping, solution design, approval gates, artifact generation, and execution logging.</p>
+
+<p>The key insight? <strong>Every stage needs explicit validation criteria.</strong> Early versions let too much noise through. Adding LLM-powered validation at each transition point dramatically improved signal quality. A pattern that looks promising at first glance often fails when you actually verify the underlying claims.</p>
+
+<h2>Source Credibility Is Everything</h2>
+
+<p>Building a credible intelligence platform means being rigorous about sources. I implemented an anti-bias weighted scoring system across 45+ sources. Independence carries 30% weight. Perspective diversity matters. ArXiv scores 84%. Our World in Data scores 83%. Reuters and fact-checkers provide verification layers.</p>
+
+<p>The source pipeline expanded through multiple phases: World Bank, WHO, and Cochrane in phase one. PubMed, NBER, and think tanks in phase two. Fact-checkers like Snopes, PolitiFact, and Full Fact in phase three. Government data portals round out the coverage.</p>
+
+<p>What surprised me: <strong>source diversity matters more than source volume.</strong> Ten independent sources with different methodologies beat a hundred sources that all cite each other.</p>
+
+<h2>Knowledge That Accumulates</h2>
+
+<p>The breakthrough came with cross-issue knowledge bases. High-falsifiability units (data points, observations, statistical evidence) accumulate as reusable evidence across issues. When validating a new pattern, the system can reference evidence already collected for related issues.</p>
+
+<p>This required decomposing information into atomic units. Each unit needs clear provenance. Each unit needs falsifiability criteria. The LLM validates units against these criteria before they enter the knowledge base. Garbage in, garbage out applies ruthlessly here.</p>
+
+<h2>Bayesian Reasoning Under Uncertainty</h2>
+
+<p>Real-world issues come with massive uncertainty. I implemented Bayesian scoring that starts with reference class priors and updates as evidence arrives. Expected value calculations help prioritize which issues deserve deeper investigation.</p>
+
+<p>The UX challenge: making confidence levels understandable. I built 12 components specifically for issue comprehension, including confidence indicators, timeline visualizations, and plain-language score descriptions. Users need to understand not just what the system thinks, but how confident it is and why.</p>
+
+<h2>Multi-Provider LLM Architecture</h2>
+
+<p>Orbit supports Anthropic, OpenAI, and Groq. Different models excel at different tasks. Claude handles nuanced reasoning about evidence quality. GPT works well for structured extraction. Groq provides speed for lower-stakes operations.</p>
+
+<p>The architecture lesson: <strong>don't couple your logic to a single provider.</strong> Model capabilities shift. Pricing changes. Having clean abstractions over multiple providers gives you flexibility without rewriting core logic.</p>
+
+<h2>What I'd Build Differently</h2>
+
+<p>The eight-stage pipeline felt right, but some transitions could be consolidated. ProblemBrief and SituationModel often overlap in practice. Clearer separation of concerns between stages would reduce cognitive overhead.</p>
+
+<p>Source credibility scoring needs continuous calibration. A source's reliability isn't static. Building feedback loops from downstream validation back to source scores is the obvious next step.</p>
+
+<p>Orbit proves that systematic intelligence work can be automated with sufficient rigor. The combination of diverse sources, explicit validation, Bayesian reasoning, and accumulated knowledge creates a platform that genuinely helps identify what matters. Now the question is: what systemic issues should it tackle first?</p>
+      </div>
+    </article>
+  </main>
+</body>
+</html>

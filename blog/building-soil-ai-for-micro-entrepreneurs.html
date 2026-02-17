@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Soil: AI for Micro-Entrepreneurs on Budget Devices - Taka Ishikawa</title>
+  <meta name="description" content="Building a domain-specific AI assistant for micro-entrepreneurs in underserved markets, targeting 4GB RAM devices with offline-first capabilities and Gemma fine-tuning.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <main>
+    <a href="/" class="back-link">&larr; Back</a>
+
+    <article>
+      <header class="post-header">
+        <h1>Building Soil: AI for Micro-Entrepreneurs on Budget Devices</h1>
+        <span class="date">February 2026</span>
+      </header>
+
+      <div class="post-content">
+        <p>Can AI business tools run on a $100 smartphone? That constraint shaped every decision building Soil, a domain-specific assistant for micro-entrepreneurs in India and Indonesia. Here's what I learned about making AI accessible on devices most of the world actually uses.</p>
+
+<h2>The 4GB Constraint</h2>
+
+<p>Budget Android devices in emerging markets typically have 4GB RAM. That's the target. The model needs to fit under 1.5B parameters to run smoothly. Gemma became the foundation, small enough to run on-device yet capable enough to provide useful business guidance.</p>
+
+<p>The key insight: <strong>domain-specific fine-tuning beats general capability.</strong> A 1B model fine-tuned on micro-business scenarios outperforms a 7B general model for this use case. The model doesn't need to write poetry or explain quantum physics. It needs to calculate margins, track expenses, and answer questions about running a small shop.</p>
+
+<h2>Three Core Capabilities</h2>
+
+<p>Soil focuses on three things micro-entrepreneurs actually need:</p>
+
+<p><strong>Calculator</strong> handles margin calculations, pricing strategies, and break-even analysis. These are deterministic operations. No LLM inference needed for basic math. The UI makes complex calculations accessible to users who might not be comfortable with spreadsheets.</p>
+
+<p><strong>Ledger</strong> tracks income and expenses with SQLite storage. Works completely offline. Syncs when connectivity exists. The design assumes intermittent internet, not constant connection.</p>
+
+<p><strong>Business Q&A</strong> is where the fine-tuned SLM shines. Users ask questions in Hindi or Indonesian about inventory management, customer relationships, or seasonal planning. The model responds with contextually relevant guidance.</p>
+
+<h2>GGUF Conversion Pipeline</h2>
+
+<p>Getting models to run efficiently on mobile requires careful optimization. I built a GGUF conversion pipeline that quantizes models while preserving quality on domain-specific tasks. The evaluation framework measures degradation specifically on business scenarios, not generic benchmarks.</p>
+
+<p>Quantization tradeoffs are real. INT4 is too aggressive for nuanced business advice. INT8 strikes the balance. The pipeline automates testing across quantization levels to find the sweet spot for each model version.</p>
+
+<h2>Cultural Adaptation</h2>
+
+<p>Business practices differ between regions. A shopkeeper in Jakarta faces different challenges than one in Mumbai. The fine-tuning data includes region-specific scenarios. Prompt templates adapt to local contexts.</p>
+
+<p>Language support goes beyond translation. Hindi and Indonesian have different business vocabularies. Accounting concepts don't map one-to-one. The training data reflects how people actually talk about their businesses in each language.</p>
+
+<h2>Offline-First Architecture</h2>
+
+<p>Core features work without internet. The model runs locally. Data stays on device. This isn't just a technical choice; it's a trust requirement. Users need to know their business data isn't uploaded somewhere.</p>
+
+<p>When connectivity exists, the app can sync anonymized usage patterns to improve the model. But the default is complete privacy. The user controls what, if anything, leaves their device.</p>
+
+<h2>What I'd Build Differently</h2>
+
+<p>Voice input should have been a day-one feature. Many target users are more comfortable speaking than typing. Adding speech-to-text after the fact required rethinking several UI flows.</p>
+
+<p>The fine-tuning data pipeline needs more automation. Generating quality training examples for domain-specific scenarios is labor-intensive. Building tools to help domain experts contribute training data would accelerate model improvement.</p>
+
+<p>Soil proves that useful AI doesn't require flagship hardware. The combination of aggressive optimization, domain focus, and offline-first design creates tools that work for the majority of the world's entrepreneurs, not just those with the latest devices.</p>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
