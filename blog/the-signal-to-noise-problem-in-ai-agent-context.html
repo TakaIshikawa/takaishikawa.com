@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Signal-to-Noise Problem in AI Agent Context - Taka Ishikawa</title>
+  <meta name="description" content="This week, I noticed something counterintuitive about working with AI agents: more context often produces worse results. I was orchestrating agents across fi...">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <main>
+    <a href="/" class="back-link">&larr; Back</a>
+
+    <article>
+      <header class="post-header">
+        <h1>The Signal-to-Noise Problem in AI Agent Context</h1>
+        <span class="date">March 2026</span>
+      </header>
+
+      <div class="post-content">
+        <h2>The Context Overflow Pattern</h2>
+        <p>This week, I noticed something counterintuitive about working with AI agents: more context often produces worse results. I was orchestrating agents across five different projects—from health optimization to investment analysis—and kept hitting the same wall. The agents would get lost in their own explanations, repeat themselves, or focus on irrelevant details when I provided comprehensive background.</p>
+        <p>The breakthrough came when I started treating context like a focused beam rather than a flood. Instead of dumping entire conversation histories into new agent sessions, I began extracting just the essential decision points and current objectives. The results were immediate and dramatic—agents moved from verbose confusion to precise action.</p>
+        <h2>Context Compression as a Core Skill</h2>
+        <p>The most effective pattern I discovered was what I call "context compression"—distilling complex project states into minimal, actionable prompts. When switching between different coding agents across projects, I stopped providing full technical specifications and instead focused on three elements: current goal, key constraints, and success criteria.</p>
+        <p>For instance, when moving from a health data pipeline to a GitHub workspace tool, I didn't explain the entire architecture. Instead: "Generate code to handle file diffs in a React workspace. Must work with existing FileChange[] structure. Success = users can see and edit generated code changes." This 30-word prompt consistently outperformed 500-word context dumps.</p>
+        <p>The pattern extends beyond coding. When coordinating agents for research tasks, I found that agents perform better when given focused questions rather than comprehensive background. "Identify utility quantification frameworks in economic literature" beats "Here's everything I know about investing and utility theory, now help me research frameworks."</p>
+        <h2>When Agents Need the Full Picture vs. When They Don't</h2>
+        <p>Through dozens of iterations, I identified clear patterns for when to provide extensive context versus minimal direction. Agents need comprehensive context when making architectural decisions, handling edge cases, or working with domain-specific constraints. They perform better with minimal context for tactical execution, code generation within established patterns, and iterative refinement tasks.</p>
+        <p>The key insight: agents excel at pattern matching and execution but struggle with information synthesis when overloaded. When I was implementing health risk scoring across multiple biological factors, providing all factor definitions upfront led to confused implementations. But giving agents one factor at a time, with clear input/output examples, produced consistent, high-quality scoring functions.</p>
+        <p>I also learned to recognize when agents are context-saturated. The telltale signs: repetitive explanations, asking for clarifications on previously established points, or producing overly complex solutions for simple problems. When this happens, I restart the conversation with compressed context rather than adding more information.</p>
+        <h2>The Rhythm of Human-AI Iteration</h2>
+        <p>The most productive pattern that emerged was alternating between focused agent execution and human synthesis. Rather than trying to maintain one continuous conversation across complex projects, I break work into discrete agent sessions with human integration points.</p>
+        <p>Here's the rhythm that maximized output: Agent session (focused task, minimal context) → Human evaluation and decision point → Context compression for next session → Repeat. This approach let me ship meaningful features across five different applications while maintaining quality and coherence.</p>
+        <p>The human role becomes curator and synthesizer rather than context provider. I stopped trying to give agents perfect instructions upfront and instead focused on rapid iteration cycles. Generate code, evaluate against objectives, extract learnings, compress context, repeat. This rhythm scales remarkably well—I maintained the same iteration speed whether working on one project or five simultaneously.</p>
+        <p>The breakthrough realization: AI agents are incredibly powerful execution engines when given clear, focused direction. They're less effective as information processors when overwhelmed with context. The highest-leverage human skill isn't prompt engineering—it's context compression and orchestration across multiple focused agent sessions.</p>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
