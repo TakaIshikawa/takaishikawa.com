@@ -1,0 +1,123 @@
+# Project Metadata Configuration
+# ================================
+# This file serves as the single source of truth for project tracking and metadata.
+# All projects listed on the website should be defined here.
+#
+# Schema: config/projects.schema.json
+#
+# HOW TO ADD A NEW PROJECT:
+# -------------------------
+# 1. Add a new entry to the `projects` array below
+# 2. Required fields:
+#    - id: Unique lowercase identifier (e.g., "my-project")
+#    - name: Display name shown on the website
+#    - repoPath: Path to the local git repository (absolute or relative to this repo)
+#    - description: Current description text for the website
+# 3. Optional fields:
+#    - enabled: Set to false to hide from website (default: true)
+#    - updateRules: Configure how/when descriptions are updated
+#    - metadata: Additional info like URL and tags
+# 4. Run validation: `python scripts/validate_config.py` (if available)
+# 5. The website will use this configuration for rendering and updates
+#
+# EXAMPLE:
+# --------
+#   - id: my-new-project
+#     name: My New Project
+#     repoPath: ~/Projects/my-new-project
+#     description: A brief description of what this project does.
+#     enabled: true
+#     updateRules:
+#       frequency: weekly
+#       triggers: [commit, manual]
+#       sources: [readme, commits]
+#     metadata:
+#       url: https://github.com/username/my-new-project
+#       tags: [python, cli, automation]
+
+version: "1.0"
+
+# Default settings applied to all projects unless overridden
+defaults:
+  updateFrequency: weekly
+  descriptionPrompt: prompts/project-description.txt
+
+# Projects tracked and displayed on the website
+projects:
+  - id: tact
+    name: TACT
+    repoPath: ~/Project/experiments/tact
+    description: >-
+      An orchestration system for AI coding agents that manages parallel agent
+      sessions: decomposing requirements into dependency-tracked tasks,
+      dispatching within budget constraints, handling merge conflicts, and
+      surfacing decisions for human input.
+    enabled: true
+    updateRules:
+      frequency: weekly
+      triggers:
+        - commit
+        - release
+        - manual
+      sources:
+        - readme
+        - commits
+        - releases
+      lastUpdated: "2026-03-07T00:00:00Z"
+    metadata:
+      url: https://github.com/TakaIshikawa/tact
+      tags:
+        - ai-agents
+        - orchestration
+        - multi-agent
+        - typescript
+
+  - id: prepend
+    name: Prepend
+    repoPath: ~/Project/experiments/prepend
+    description: >-
+      A health optimization platform with a 4-layer architecture mapping
+      conditions to biological and behavioral risk factors, featuring
+      LE8-inspired scoring and wearable data integration.
+    enabled: true
+    updateRules:
+      frequency: weekly
+      triggers:
+        - commit
+        - manual
+      sources:
+        - readme
+        - commits
+      lastUpdated: "2026-03-07T00:00:00Z"
+    metadata:
+      url: https://github.com/TakaIshikawa/prepend
+      tags:
+        - health
+        - wearables
+        - data-integration
+        - typescript
+
+  - id: increment
+    name: Increment
+    repoPath: ~/Project/experiments/increment
+    description: >-
+      An AI-augmented workspace with specialized agents for explaining,
+      generating, reviewing, and understanding code and content.
+    enabled: true
+    updateRules:
+      frequency: weekly
+      triggers:
+        - commit
+        - manual
+      sources:
+        - readme
+        - commits
+        - code
+      lastUpdated: "2026-03-07T00:00:00Z"
+    metadata:
+      url: https://github.com/TakaIshikawa/increment
+      tags:
+        - ai-workspace
+        - code-generation
+        - code-review
+        - productivity

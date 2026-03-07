@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "projects.schema.json",
+  "title": "Project Metadata Configuration",
+  "description": "Schema for tracking project metadata, repository paths, and update rules for the portfolio website",
+  "type": "object",
+  "required": ["version", "projects"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Schema version for migration compatibility",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "defaults": {
+      "type": "object",
+      "description": "Default values applied to all projects unless overridden",
+      "properties": {
+        "updateFrequency": {
+          "$ref": "#/$defs/updateFrequency"
+        },
+        "descriptionPrompt": {
+          "type": "string",
+          "description": "Path to the prompt template for generating descriptions"
+        }
+      }
+    },
+    "projects": {
+      "type": "array",
+      "description": "List of projects to track and display on the website",
+      "items": {
+        "$ref": "#/$defs/project"
+      },
+      "minItems": 1
+    }
+  },
+  "$defs": {
+    "project": {
+      "type": "object",
+      "required": ["id", "name", "repoPath", "description"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the project (lowercase, hyphenated)",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name for the project on the website",
+          "minLength": 1
+        },
+        "repoPath": {
+          "type": "string",
+          "description": "Absolute or relative path to the project's local git repository"
+        },
+        "description": {
+          "type": "string",
+          "description": "Current description displayed on the website"
+        },
+        "updateRules": {
+          "$ref": "#/$defs/updateRules"
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the project is actively tracked and displayed",
+          "default": true
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Additional project-specific metadata",
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Public URL for the project (GitHub, docs, etc.)"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Tags for categorizing the project"
+            }
+          }
+        }
+      }
+    },
+    "updateRules": {
+      "type": "object",
+      "description": "Rules governing when and how the project description should be updated",
+      "properties": {
+        "frequency": {
+          "$ref": "#/$defs/updateFrequency"
+        },
+        "triggers": {
+          "type": "array",
+          "description": "Events that trigger a description update",
+          "items": {
+            "type": "string",
+            "enum": ["commit", "release", "manual", "scheduled"]
+          },
+          "default": ["manual"]
+        },
+        "sources": {
+          "type": "array",
+          "description": "Data sources to consider when generating descriptions",
+          "items": {
+            "type": "string",
+            "enum": ["readme", "commits", "releases", "issues", "code"]
+          },
+          "default": ["readme", "commits"]
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of the last description update"
+        }
+      }
+    },
+    "updateFrequency": {
+      "type": "string",
+      "description": "How often to check for updates",
+      "enum": ["daily", "weekly", "monthly", "on-change", "manual"],
+      "default": "weekly"
+    }
+  }
+}
