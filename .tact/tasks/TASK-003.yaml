@@ -1,0 +1,35 @@
+id: TASK-003
+requirement: REQ-001
+title: Build AI-powered description generator
+status: completed
+assignee: 84646981-e867-4baf-98e6-d401d708242d
+priority: medium
+description: Create a script that takes git activity summaries and generates
+  natural, concise project descriptions that match the website's tone and style.
+  This should use an LLM (Claude API or similar) to transform technical git data
+  into human-readable descriptions that highlight recent progress and project
+  direction.
+acceptanceCriteria:
+  - Script accepts structured git activity data as input
+  - Integrates with an LLM API (Claude/OpenAI) to generate descriptions
+  - Generated descriptions match website tone (professional, concise, technical)
+  - Includes prompt engineering to maintain consistency across projects
+  - Handles API errors gracefully with fallback behavior
+  - Output descriptions are 1-3 sentences matching current format
+  - Can optionally preserve manual overrides or custom additions
+scope:
+  files:
+    - scripts/description-generator.py
+    - scripts/description-generator.js
+    - prompts/project-description.txt
+  estimatedComplexity: medium
+dependsOn: []
+blocks:
+  - TASK-005
+output:
+  branch: tact-TASK-003
+  commits: []
+  startedAt: 2026-03-07T12:04:12.507Z
+  completedAt: 2026-03-07T12:07:53.452Z
+  linesAdded: 0
+  linesRemoved: 0

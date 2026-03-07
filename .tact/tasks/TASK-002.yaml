@@ -1,0 +1,35 @@
+id: TASK-002
+requirement: REQ-001
+title: Build git activity analyzer script
+status: completed
+assignee: 5bd79ce3-9064-4dcf-a062-27e9352c6631
+priority: medium
+description: Create a script that reads git commit history from local project
+  repositories, analyzes recent activity (commits, file changes, branch
+  activity), and generates structured summaries suitable for project
+  descriptions. This should extract meaningful insights like feature additions,
+  bug fixes, refactoring work, etc.
+acceptanceCriteria:
+  - Script can read git log from specified repository paths
+  - Extracts commit messages, timestamps, and file change statistics
+  - Groups commits by type (feature, fix, docs, refactor) based on conventional
+    commit patterns or keywords
+  - Generates a structured summary (JSON) with recent activity insights
+  - "Handles edge cases: no commits, repository not found, permission errors"
+  - Unit tests verify git parsing logic
+scope:
+  files:
+    - scripts/git-analyzer.py
+    - scripts/git-analyzer.js
+    - tests/test-git-analyzer.*
+  estimatedComplexity: medium
+dependsOn: []
+blocks:
+  - TASK-005
+output:
+  branch: tact-TASK-002
+  commits: []
+  startedAt: 2026-03-07T12:04:12.493Z
+  completedAt: 2026-03-07T12:10:31.151Z
+  linesAdded: 0
+  linesRemoved: 0

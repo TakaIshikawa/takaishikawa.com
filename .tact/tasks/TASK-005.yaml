@@ -1,0 +1,41 @@
+id: TASK-005
+requirement: REQ-001
+title: Build orchestration script and automation pipeline
+status: completed
+assignee: 24e090b5-28a3-408e-ad0d-e42abc15b1a7
+priority: medium
+description: "Create a main orchestration script that coordinates all
+  components: reads configuration, analyzes git activity for each project,
+  generates descriptions, updates HTML, and optionally commits changes. Also
+  includes scheduling/automation setup (cron job, GitHub Actions, or similar)
+  for daily execution."
+acceptanceCriteria:
+  - "Main script orchestrates the full workflow: config → analyze → generate →
+    update"
+  - Processes all configured projects in sequence or parallel
+  - Includes logging for each step with timestamps and status
+  - Supports dry-run mode for testing without changes
+  - Optionally creates git commit with updated index.html
+  - Command-line interface with options for projects to update, dry-run, etc.
+  - Automation configuration (cron, GitHub Actions workflow) for daily execution
+  - Documentation explains how to run manually and configure automation
+scope:
+  files:
+    - scripts/update-website.py
+    - scripts/update-website.js
+    - .github/workflows/update-projects.yml
+    - cron/daily-update.sh
+  estimatedComplexity: high
+dependsOn:
+  - TASK-002
+  - TASK-003
+  - TASK-004
+  - TASK-005
+blocks: []
+output:
+  branch: tact-TASK-005
+  commits: []
+  startedAt: 2026-03-07T12:04:12.550Z
+  completedAt: 2026-03-07T12:09:55.033Z
+  linesAdded: 0
+  linesRemoved: 0

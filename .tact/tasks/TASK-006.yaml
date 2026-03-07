@@ -1,0 +1,32 @@
+id: TASK-006
+requirement: REQ-001
+title: Create documentation and usage guide
+status: completed
+assignee: 8b4b8f90-f643-4473-93b7-bba0731afc33
+priority: medium
+description: Write comprehensive documentation explaining the automated update
+  system, how to configure it, run it manually, troubleshoot issues, and
+  customize behavior for different projects or update frequencies.
+acceptanceCriteria:
+  - README or docs file explains the overall system architecture
+  - Step-by-step setup instructions for first-time configuration
+  - Examples of how to add new projects to track
+  - Troubleshooting guide for common issues
+  - Explains how to customize description generation prompts
+  - Documents all command-line options and configuration settings
+  - Includes example output and before/after screenshots
+scope:
+  files:
+    - docs/AUTO_UPDATE_SYSTEM.md
+    - README.md
+  estimatedComplexity: low
+dependsOn:
+  - TASK-006
+blocks: []
+output:
+  branch: tact-TASK-006
+  commits: []
+  startedAt: 2026-03-07T12:04:12.577Z
+  completedAt: 2026-03-07T13:06:47.139Z
+  linesAdded: 0
+  linesRemoved: 0

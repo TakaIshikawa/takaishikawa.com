@@ -1,0 +1,31 @@
+id: TASK-001
+requirement: REQ-001
+title: Create project metadata configuration system
+status: completed
+assignee: 14210818-f00f-4896-9d56-8e9f5e76024e
+priority: medium
+description: Create a configuration file (YAML/JSON) that maps each project
+  listed on the website to its local git repository path, current description,
+  and update rules. This will serve as the single source of truth for project
+  tracking and metadata.
+acceptanceCriteria:
+  - Configuration file exists with schema for project name, repo path, current
+    description, and update frequency
+  - All three projects (TACT, Prepend, Increment) are defined in the
+    configuration
+  - Configuration validates and loads successfully
+  - Documentation explains how to add new projects to track
+scope:
+  files:
+    - config/projects.yaml
+    - config/projects.schema.json
+  estimatedComplexity: low
+dependsOn: []
+blocks: []
+output:
+  branch: tact-TASK-001
+  commits: []
+  startedAt: 2026-03-07T12:04:12.442Z
+  completedAt: 2026-03-07T12:07:08.896Z
+  linesAdded: 0
+  linesRemoved: 0

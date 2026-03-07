@@ -1,0 +1,36 @@
+id: TASK-004
+requirement: REQ-001
+title: Create HTML updater script
+status: completed
+assignee: e8e210a0-4508-4e75-9eb5-00169f9b53f1
+priority: medium
+description: Build a script that safely updates the project descriptions in
+  index.html by parsing the HTML, locating specific project sections, and
+  replacing description content while preserving structure and styling. This
+  should use proper HTML parsing (not regex) to ensure reliability.
+acceptanceCriteria:
+  - Script parses index.html using proper HTML parser (BeautifulSoup, cheerio,
+    etc.)
+  - Correctly identifies each project section by name/heading
+  - Updates only the description paragraph without affecting HTML structure or
+    classes
+  - Creates a backup of index.html before modifications
+  - Validates HTML structure after updates
+  - Dry-run mode shows proposed changes without applying them
+  - Preserves formatting and indentation of original file
+scope:
+  files:
+    - scripts/html-updater.py
+    - scripts/html-updater.js
+    - tests/test-html-updater.*
+  estimatedComplexity: medium
+dependsOn: []
+blocks:
+  - TASK-005
+output:
+  branch: tact-TASK-004
+  commits: []
+  startedAt: 2026-03-07T12:04:12.528Z
+  completedAt: 2026-03-07T12:09:34.786Z
+  linesAdded: 0
+  linesRemoved: 0

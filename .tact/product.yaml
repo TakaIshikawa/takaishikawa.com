@@ -1,9 +1,11 @@
 name: me
 version: 0.1.0
-vision: ""
+vision: Represent my work, projects, and blogs as a website. Clean, Clear, and Concise.
 goals: []
 constraints: []
 techStack:
-  languages: []
+  languages:
+    - HTML
+    - CSS
   frameworks: []
   infrastructure: []
