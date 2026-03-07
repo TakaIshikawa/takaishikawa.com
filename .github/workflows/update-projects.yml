@@ -1,0 +1,209 @@
+# GitHub Actions Workflow: Update Project Descriptions
+# ====================================================
+# This workflow automatically updates project descriptions on the portfolio website
+# by analyzing git activity and generating new descriptions using LLM.
+#
+# Schedule: Daily at 6:00 AM UTC (configurable)
+#
+# Manual Trigger: Use the "Run workflow" button in GitHub Actions UI
+#
+# Requirements:
+#   - ANTHROPIC_API_KEY secret (for LLM description generation)
+#   - Or OPENAI_API_KEY secret (if using OpenAI provider)
+#   - Repository secrets can be configured in Settings > Secrets and variables > Actions
+#
+# Configuration:
+#   - Edit config/projects.yaml to add/remove projects
+#   - Project repositories must be accessible (for local runs)
+#   - For GitHub Actions, activity is analyzed from the main repo only
+
+name: Update Project Descriptions
+
+on:
+  # Daily schedule (6:00 AM UTC)
+  schedule:
+    - cron: '0 6 * * *'
+
+  # Manual trigger with options
+  workflow_dispatch:
+    inputs:
+      projects:
+        description: 'Projects to update (comma-separated, or "all")'
+        required: false
+        default: 'all'
+      dry_run:
+        description: 'Dry run (preview changes only)'
+        required: false
+        default: 'false'
+        type: boolean
+      provider:
+        description: 'LLM provider'
+        required: false
+        default: 'anthropic'
+        type: choice
+        options:
+          - anthropic
+          - openai
+      skip_llm:
+        description: 'Skip LLM (use fallback descriptions)'
+        required: false
+        default: 'false'
+        type: boolean
+
+env:
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  update-descriptions:
+    name: Update Project Descriptions
+    runs-on: ubuntu-latest
+
+    # Permissions needed for pushing commits
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git analysis
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml beautifulsoup4
+
+          # Install LLM provider SDK based on configuration
+          if [[ "${{ inputs.provider || 'anthropic' }}" == "anthropic" ]]; then
+            pip install anthropic
+          else
+            pip install openai
+          fi
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Prepare project arguments
+        id: prepare
+        run: |
+          PROJECTS="${{ inputs.projects || 'all' }}"
+          if [[ "$PROJECTS" == "all" ]]; then
+            echo "project_args=" >> $GITHUB_OUTPUT
+          else
+            # Convert comma-separated to space-separated
+            PROJECTS_ARGS=$(echo "$PROJECTS" | tr ',' ' ')
+            echo "project_args=--projects $PROJECTS_ARGS" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run update script
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          # Build command arguments
+          CMD="python scripts/update-website.py --verbose"
+
+          # Add project filter if specified
+          CMD="$CMD ${{ steps.prepare.outputs.project_args }}"
+
+          # Add provider
+          CMD="$CMD --provider ${{ inputs.provider || 'anthropic' }}"
+
+          # Add dry-run flag if enabled
+          if [[ "${{ inputs.dry_run }}" == "true" ]]; then
+            CMD="$CMD --dry-run"
+          fi
+
+          # Add no-llm flag if enabled
+          if [[ "${{ inputs.skip_llm }}" == "true" ]]; then
+            CMD="$CMD --no-llm"
+          fi
+
+          # Add output JSON for artifact
+          CMD="$CMD --output-json update-results.json"
+
+          echo "Running: $CMD"
+          $CMD
+
+      - name: Upload results artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: update-results
+          path: update-results.json
+          retention-days: 30
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet index.html; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.changes.outputs.has_changes == 'true' && inputs.dry_run != 'true'
+        run: |
+          git add index.html
+          git commit -m "Update project descriptions ($(date +%Y-%m-%d))
+
+          Automated update via GitHub Actions.
+
+          Co-Authored-By: github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+          git push
+
+      - name: Summary
+        run: |
+          echo "## Update Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [[ -f update-results.json ]]; then
+            # Parse results JSON
+            TIMESTAMP=$(jq -r '.timestamp' update-results.json)
+            DRY_RUN=$(jq -r '.dry_run' update-results.json)
+            TOTAL=$(jq '.results | length' update-results.json)
+            SUCCESS=$(jq '[.results[] | select(.success == true)] | length' update-results.json)
+            FAILED=$(jq '[.results[] | select(.success == false)] | length' update-results.json)
+            HTML_CHANGES=$(jq -r '.html_update.changes // 0' update-results.json)
+
+            echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+            echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+            echo "| Timestamp | $TIMESTAMP |" >> $GITHUB_STEP_SUMMARY
+            echo "| Dry Run | $DRY_RUN |" >> $GITHUB_STEP_SUMMARY
+            echo "| Projects Processed | $TOTAL |" >> $GITHUB_STEP_SUMMARY
+            echo "| Successful | $SUCCESS |" >> $GITHUB_STEP_SUMMARY
+            echo "| Failed | $FAILED |" >> $GITHUB_STEP_SUMMARY
+            echo "| HTML Changes | $HTML_CHANGES |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No results file found." >> $GITHUB_STEP_SUMMARY
+          fi
+
+  # Optional: Create pull request instead of direct push
+  # Uncomment this job and comment out the push step above if you prefer PRs
+  #
+  # create-pr:
+  #   name: Create Pull Request
+  #   needs: update-descriptions
+  #   runs-on: ubuntu-latest
+  #   if: needs.update-descriptions.outputs.has_changes == 'true'
+  #
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #
+  #     - name: Create Pull Request
+  #       uses: peter-evans/create-pull-request@v6
+  #       with:
+  #         title: 'Update project descriptions'
+  #         body: |
+  #           Automated update of project descriptions based on recent git activity.
+  #
+  #           Review the changes and merge if they look good.
+  #         branch: auto/update-descriptions
+  #         delete-branch: true
