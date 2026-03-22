@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Momentum Trap: When AI Agents Need Direction, Not Debugging - Taka Ishikawa</title>
+  <meta name="description" content="Last Tuesday: 3 hours of debugging, 12 commits, zero working features. I'd fallen into the most expensive trap in AI-assisted development—mistaking technical...">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <main>
+    <a href="/" class="back-link">&larr; Back</a>
+
+    <article>
+      <header class="post-header">
+        <h1>The Momentum Trap: When AI Agents Need Direction, Not Debugging</h1>
+        <span class="date">March 2026</span>
+      </header>
+
+      <div class="post-content">
+        <p>Last Tuesday: 3 hours of debugging, 12 commits, zero working features. I'd fallen into the most expensive trap in AI-assisted development—mistaking technical problems for directional ones. What started as a simple server error spiraled into reactive debugging where both my AI agents and I were solving symptoms instead of addressing the real issue: I'd stopped steering and started troubleshooting.</p>
+        <p>The pattern is seductive. Error appears, paste into AI chat, get technical fix, implement, hit another error, repeat. Before you know it, you're deep in a cycle where the AI focuses on immediate obstacles while your actual project goals drift further away.</p>
+        <h2>When "What's Next" Becomes the Wrong Question</h2>
+        <p>I can pinpoint the exact moment I lost control: after hitting a server error, I asked the AI "what's next?" This seems reasonable—collaborative problem-solving, right? But this question fundamentally shifts the human-AI dynamic in a problematic way.</p>
+        <p>When you ask "what's next," you hand over strategic control. The AI naturally focuses on the most immediate technical obstacle, not broader project direction. In my case, this led to incremental fixes that solved individual errors but didn't advance the user authentication flow I was actually building.</p>
+        <p>The breakthrough reframe: instead of "what's next," ask "what's the fastest path to [specific outcome]?" This keeps you in the driver's seat while leveraging AI problem-solving. The AI suggests technical solutions within a framework you've defined.</p>
+        <p><strong>The pattern</strong>: AI agents excel at tactical execution but struggle with strategic prioritization. When you abdicate direction-setting, you get technically correct solutions that don't serve your actual goals.</p>
+        <h2>The Debugging Spiral vs. The Reset Pattern</h2>
+        <p>My most expensive mistake was continuing to debug within the same conversation thread. Each error led to another prompt, another fix, another error. The AI was building solutions on top of previous solutions, creating increasingly complex workarounds for what turned out to be simple architectural issues.</p>
+        <p>I broke this cycle with what I now call the "reset pattern." When I hit the third consecutive error in a debugging sequence, I stop. Extract the core objective, compress it into a clear prompt, start a fresh AI session.</p>
+        <p>My reset moment came after struggling with async function errors for an hour. Instead of continuing to debug the specific implementation, I started fresh: "I need server actions that handle user login flow. They must be async. Show me the cleanest implementation." The AI produced a completely different approach that avoided the entire class of errors I'd been fighting.</p>
+        <p><strong>The insight</strong>: AI agents inherit the complexity of their conversation history. When debugging gets circular, the fastest path forward is often a clean restart with compressed context, not deeper debugging.</p>
+        <h2>The Momentum Illusion</h2>
+        <p>Here's what surprised me most: my commit history showed lots of code changes but minimal functional progress. Incremental tweaks and error fixes, but the authentication feature barely advanced.</p>
+        <p>This reveals a dangerous illusion in AI-assisted development. Frequent commits and active AI collaboration feel productive but can mask lack of meaningful progress. I was optimizing for conversation flow rather than outcome achievement.</p>
+        <p>The breakthrough came when I shifted evaluation criteria from "did we fix the error?" to "are we closer to the user-facing outcome?" This reframe changed everything. Errors became signals about direction, not problems to solve in isolation.</p>
+        <p>When I applied this lens, I realized several "bugs" were actually symptoms of building the wrong thing. The async function errors weren't technical problems—they indicated my architecture wasn't aligned with the user flow I wanted to create.</p>
+        <h2>The Strategic Pause</h2>
+        <p>The most valuable skill I developed: recognizing when to pause AI collaboration entirely. Not every problem needs immediate solving, and not every error needs real-time debugging.</p>
+        <p>I learned to distinguish between execution blockers and direction uncertainties. Execution blockers (syntax errors, missing dependencies) are perfect for AI collaboration. Direction uncertainties (which feature to build next, how users should interact with the system) require human judgment first, AI execution second.</p>
+        <p>The pattern that emerged: when I found myself asking vague questions like "what's wrong" or "what should we do," it signaled time to step back and clarify my intentions before engaging the AI. The most productive sessions started with clear objectives: "implement user authentication flow" or "add data validation to form submission."</p>
+        <p>This isn't about using AI less—it's about using AI more strategically. By taking ownership of direction-setting and outcome definition, I could leverage AI agents for what they do best: rapid, focused execution within clear parameters.</p>
+        <p><strong>The meta-lesson</strong>: AI agents amplify your clarity. When you're clear about objectives, they accelerate progress dramatically. When you're unclear, they amplify the confusion. The highest-leverage human skill isn't prompt engineering—it's maintaining strategic clarity while delegating tactical execution.</p>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
