@@ -76,7 +76,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pyyaml beautifulsoup4
+          pip install pyyaml beautifulsoup4 requests
 
           # Install LLM provider SDK based on configuration
           if [[ "${{ inputs.provider || 'anthropic' }}" == "anthropic" ]]; then
@@ -106,9 +106,10 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           # Build command arguments
-          CMD="python scripts/update-website.py --verbose"
+          CMD="python scripts/update-website.py --verbose --source github"
 
           # Add project filter if specified
           CMD="$CMD ${{ steps.prepare.outputs.project_args }}"

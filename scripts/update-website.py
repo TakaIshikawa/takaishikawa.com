@@ -69,6 +69,12 @@ _html_upd = import_module_from_file('html_updater', SCRIPT_DIR / 'html-updater.p
 HTMLUpdater = _html_upd.HTMLUpdater
 HTMLUpdaterError = _html_upd.HTMLUpdaterError
 
+# Import github-activity.py
+_github_act = import_module_from_file('github_activity', SCRIPT_DIR / 'github-activity.py')
+analyze_git_activity_github = _github_act.analyze_git_activity_github
+GitHubClient = _github_act.GitHubClient
+resolve_github_token = _github_act.resolve_github_token
+
 # Try to import yaml
 try:
     import yaml
@@ -351,14 +357,31 @@ def update_project(
     generator: DescriptionGenerator,
     logger: logging.Logger,
     dry_run: bool = False,
-    no_llm: bool = False
+    no_llm: bool = False,
+    source: str = "auto",
+    github_client: Optional[GitHubClient] = None,
 ) -> UpdateResult:
     """Update a single project's description."""
     logger.info(f"Processing project: {project.name}")
 
     # Analyze git activity
     logger.debug(f"  Analyzing git activity for {project.name}...")
-    activity = analyze_git_activity(project, logger)
+    activity = None
+
+    if source in ('github', 'auto') and project.url:
+        try:
+            activity = analyze_git_activity_github(project, logger, client=github_client)
+        except Exception as e:
+            if source == 'github':
+                return UpdateResult(
+                    project_name=project.name,
+                    success=False,
+                    error=f"GitHub API failed: {e}",
+                )
+            logger.warning(f"  GitHub API failed for {project.name}, falling back to local: {e}")
+
+    if activity is None and source in ('local', 'auto'):
+        activity = analyze_git_activity(project, logger)
 
     if activity is None:
         return UpdateResult(
@@ -415,6 +438,7 @@ def orchestrate_update(
     dry_run: bool = False,
     no_llm: bool = False,
     provider: str = "anthropic",
+    source: str = "auto",
 ) -> tuple[list[UpdateResult], list[dict]]:
     """
     Orchestrate the full update workflow.
@@ -437,6 +461,22 @@ def orchestrate_update(
 
     logger.info(f"Updating {len(projects_to_update)} project(s)")
 
+    # Create shared GitHub client if needed
+    github_client = None
+    if source in ('auto', 'github'):
+        try:
+            token = resolve_github_token()
+            if token:
+                logger.info("GitHub API: authenticated")
+            else:
+                logger.info("GitHub API: unauthenticated (rate limit: 60/hr)")
+            github_client = GitHubClient(token=token)
+        except ImportError:
+            if source == 'github':
+                logger.error("requests library required for GitHub API source")
+                raise
+            logger.warning("requests not installed, skipping GitHub API")
+
     # Initialize description generator
     generator = DescriptionGenerator(provider=provider)
 
@@ -448,6 +488,8 @@ def orchestrate_update(
             logger,
             dry_run=dry_run,
             no_llm=no_llm,
+            source=source,
+            github_client=github_client,
         )
         results.append(result)
 
@@ -656,6 +698,12 @@ Examples:
         '--output-json',
         help='Write results to JSON file',
     )
+    parser.add_argument(
+        '--source',
+        choices=['auto', 'github', 'local'],
+        default='auto',
+        help='Data source for git activity: github (API), local (git CLI), auto (try github then local)',
+    )
 
     args = parser.parse_args()
 
@@ -695,6 +743,7 @@ Examples:
             dry_run=args.dry_run,
             no_llm=args.no_llm,
             provider=args.provider,
+            source=args.source,
         )
     except Exception as e:
         logger.error(f"Orchestration failed: {e}")

@@ -7,7 +7,7 @@ description: Keep updating website contents - projects description according to
   the commits made for the projects locally
 acceptanceCriteria: []
 decomposition:
-  tasks:
+  assignments:
     - TASK-001
     - TASK-002
     - TASK-003
