@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>When AI Agents Misread Your Intent: The Precision Problem - Taka Ishikawa</title>
+  <meta name="description" content="I just spent two hours debugging assignment creation logic with AI assistance, only to discover the real problem was that completed sprints weren't properly ...">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <main>
+    <a href="/" class="back-link">&larr; Back</a>
+
+    <article>
+      <header class="post-header">
+        <h1>When AI Agents Misread Your Intent: The Precision Problem</h1>
+        <span class="date">March 2026</span>
+      </header>
+
+      <div class="post-content">
+        <p>I just spent two hours debugging assignment creation logic with AI assistance, only to discover the real problem was that completed sprints weren't properly handling new assignments. We fixed the wrong system perfectly while the actual issue remained untouched. This expensive mistake crystallized something I'd been noticing across multiple debugging sessions: the biggest failure mode in AI collaboration isn't when agents can't solve problems—it's when they solve the wrong problems perfectly.</p>
+        <p>The pattern became clear after the third misfire: I'd describe a symptom, the AI would implement a technically sound solution, but the underlying issue would persist or shift. The problem wasn't the AI's execution—it was my problem diagnosis and communication.</p>
+        <h2>The Symptom Description Trap</h2>
+        <p>My instinct when encountering bugs was to describe what I observed rather than what I suspected was wrong. When I noticed alerts displaying incorrectly, I'd say "this alert shows the wrong message" instead of "the logic for determining alert severity is backwards."</p>
+        <p>This created a consistent pattern: AI agents would fix the surface manifestation while the root cause remained untouched. They'd adjust display logic when the issue was data processing, or modify UI behavior when the problem was business logic.</p>
+        <p>The breakthrough came when I started leading with hypothesis rather than observation. Instead of "this item still appears in the active list after I marked it," I began with "the filtering logic isn't properly updating item status." This shift changed everything about how AI agents approached problems.</p>
+        <p><strong>The insight</strong>: AI agents are incredibly literal. They solve exactly the problem you describe, not the problem you're experiencing. When you describe symptoms, they treat symptoms. When you describe root causes, they address root causes.</p>
+        <h2>The Precision vs. Context Trade-off</h2>
+        <p>I discovered something counterintuitive about problem description: being more specific about the issue often led to better solutions, even when I provided less background context. When debugging alert logic, my initial approach was to explain the entire health monitoring system. The AI got lost in the complexity and suggested changes that would break other functionality.</p>
+        <p>Then I tried extreme precision: "Sleep alerts are flagging 11.9 hours as deprivation instead of excess. The threshold comparison is inverted." The AI immediately identified the logical error and fixed it without disrupting related features.</p>
+        <p>This pattern held across different types of problems. Vague descriptions with lots of context led to overly cautious, complex solutions. Precise problem statements with minimal context led to targeted, effective fixes.</p>
+        <p><strong>The pattern</strong>: AI agents perform better with precise problem definitions than comprehensive system understanding. They're surgical tools, not diagnostic engines.</p>
+        <h2>When Good Debugging Goes Wrong</h2>
+        <p>The most expensive mistake I made was continuing to collaborate with AI on problems I hadn't properly diagnosed myself. That assignment creation debugging session revealed a critical evaluation point: before engaging AI for debugging, I need to distinguish between "I don't know what's wrong" and "I know what's wrong but don't know how to fix it." AI agents excel at the latter but struggle with the former.</p>
+        <p>When I don't understand the problem, AI collaboration amplifies the confusion. When I understand the problem but lack implementation knowledge, AI collaboration accelerates the solution. We spent multiple iterations adjusting the creation logic when the real issue was in sprint handling because I jumped straight to AI assistance without proper diagnosis.</p>
+        <p><strong>The meta-skill</strong>: Recognizing when to pause AI collaboration to do human diagnosis first. Not every problem benefits from immediate AI assistance.</p>
+        <h2>The Feedback Loop That Actually Works</h2>
+        <p>The most productive debugging rhythm that emerged was: observe issue → form hypothesis → test hypothesis manually → describe confirmed problem to AI → implement solution. This sounds slower than immediate AI collaboration, but it consistently produced better outcomes.</p>
+        <p>When I suspected filtering logic was broken, instead of immediately asking AI to fix it, I traced through the expected data flow myself. Once I confirmed where the logic failed, I could give the AI a precise target: "The status parameter isn't being passed in the alert fetch request." The AI fixed it in one iteration.</p>
+        <p>This approach also improved my own understanding of the systems I was building. By forcing myself to diagnose before delegating, I built better mental models that informed future development decisions.</p>
+        <p><strong>The rhythm</strong>: Human diagnosis → AI execution works better than Human observation → AI diagnosis → AI execution.</p>
+        <p>The broader principle extends beyond debugging. Whether using AI for feature development, content creation, or analysis, the same pattern holds: the quality of AI output correlates strongly with the precision of human problem definition, not the comprehensiveness of context provided.</p>
+        <p>The future of AI collaboration isn't about getting better at describing what we observe—it's about getting better at diagnosing what we need solved. AI agents are powerful execution engines waiting for clear direction, not detective partners for mysterious problems.</p>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
