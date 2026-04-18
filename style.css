@@ -82,6 +82,28 @@ h3 {
   margin-bottom: 2rem;
 }
 
+.hero-head {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+
+.hero-identity {
+  min-width: 0;
+}
+
+.hero-photo {
+  width: 72px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+  display: block;
+  margin-top: 0.25rem;
+}
+
 .hero .role {
   font-size: 1.25rem;
   color: var(--accent);
@@ -286,6 +308,16 @@ a:focus-visible {
 }
 
 @media (max-width: 640px) {
+  .hero-head {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .hero-photo {
+    width: 72px;
+    margin-top: 0;
+  }
+
   .posts li {
     flex-direction: column;
     align-items: flex-start;
