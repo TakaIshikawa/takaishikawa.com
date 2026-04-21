@@ -6,7 +6,7 @@ The following is my linkedin profille and can use as a source to structure the w
 
 """
 Improved Version (Proposed Rewrite)
-Taka Ishikawa
+Takahiro Ishikawa
 
 Software Engineer | Data, ML Systems, Product Engineering
 Japan · English / Japanese
